@@ -20,26 +20,7 @@ struct Home: View {
                 .edgesIgnoringSafeArea(.all) // This will make this View to be over the safe areas too. (.all applies it to all of them)
             
             
-            VStack {
-                HStack {
-                    Text("Watching")
-                        .font(.system(size: 28, weight: .bold))
-                    
-                    Spacer()
-                    
-                    Button(action: { self.showProfile.toggle() }) {
-                        Image("Avatar")
-                            .renderingMode(.original)
-                            .resizable()
-                            .frame(width: 36, height: 36)
-                            .clipShape(Circle())
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 30)
-                
-                Spacer() // This will push everything to the top
-            }
+            HomeView(showProfile: $showProfile)
                 .padding(.top, 44) // Because we want a background color for our VStack, we will have to ignore the safe areas, but with this the content will move also and maybe will be on the safe area. So, we use this padding top of 44 to move it down again. (44 is the height of the Status bar safe area)
                 // Obiously this will cause a problem... We will have to handle what kind of device is opening the app, because for example the iPhone 8 doesnt have notch.
                 .background(Color.white) // Now we can setup our background
@@ -54,24 +35,24 @@ struct Home: View {
             
             MenuView()
                 .background(Color.black.opacity(0.001)) // We set a semi invisible background to have the way to touch it and toggle the views. It wont work if we use 0, because Swift will take it as a non existent thing.
-                .offset(y: showProfile ? 0 : 1000)
+                .offset(y: showProfile ? 0 : screen.height)
                 .offset(y: viewState.height) // With this line we are able to drag our card, because we are setting the viewState value with the drag gesture.
                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
                 .onTapGesture {
                     self.showProfile.toggle()
             }
-        .gesture( // This will be a drag gesture that will track the position and save it to the viewState
-            DragGesture().onChanged { value in
-                self.viewState = value.translation
-            }
-            .onEnded { value in
-                if self.viewState.height > 50 {
-                    self.showProfile = false
-                }
-                self.viewState = .zero
-            }
-        )
-                
+                .gesture( // This will be a drag gesture that will track the position and save it to the viewState
+                    DragGesture().onChanged { value in
+                        self.viewState = value.translation
+                    }
+                    .onEnded { value in
+                        if self.viewState.height > 50 {
+                            self.showProfile = false
+                        }
+                        self.viewState = .zero
+                    }
+            )
+            
         }
     }
 }
@@ -81,3 +62,21 @@ struct Home_Previews: PreviewProvider {
         Home()
     }
 }
+
+struct AvatarView: View {
+    // This is the way to get or bind to this view the state of the parent view
+    @Binding var showProfile: Bool
+    
+    var body: some View {
+        Button(action: { self.showProfile.toggle() }) {
+            Image("Avatar")
+                .renderingMode(.original)
+                .resizable()
+                .frame(width: 36, height: 36)
+                .clipShape(Circle())
+        }
+    }
+}
+
+// This is going to allow us to detect the dimensions of the screen
+let screen = UIScreen.main.bounds
