@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E51AC31247E99A2007E6CD6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E51AC30247E99A2007E6CD6 /* ContentView.swift */; };
+		9EEC29E12480D99A007061AB /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC29E02480D99A007061AB /* MenuView.swift */; };
 		9EF0BDCD247E7C5C006F9025 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF0BDCC247E7C5C006F9025 /* AppDelegate.swift */; };
 		9EF0BDCF247E7C5C006F9025 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF0BDCE247E7C5C006F9025 /* SceneDelegate.swift */; };
 		9EF0BDD3247E7C5D006F9025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EF0BDD2247E7C5D006F9025 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		9E51AC30247E99A2007E6CD6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9EEC29E02480D99A007061AB /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9EF0BDC9247E7C5C006F9025 /* ContentExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContentExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF0BDCC247E7C5C006F9025 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EF0BDCE247E7C5C006F9025 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,11 +60,12 @@
 			children = (
 				9EF0BDCC247E7C5C006F9025 /* AppDelegate.swift */,
 				9EF0BDCE247E7C5C006F9025 /* SceneDelegate.swift */,
+				9E51AC30247E99A2007E6CD6 /* ContentView.swift */,
+				9EEC29E02480D99A007061AB /* MenuView.swift */,
 				9EF0BDD2247E7C5D006F9025 /* Assets.xcassets */,
 				9EF0BDD7247E7C5D006F9025 /* LaunchScreen.storyboard */,
 				9EF0BDDA247E7C5D006F9025 /* Info.plist */,
 				9EF0BDD4247E7C5D006F9025 /* Preview Content */,
-				9E51AC30247E99A2007E6CD6 /* ContentView.swift */,
 			);
 			path = ContentExplorer;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EF0BDCD247E7C5C006F9025 /* AppDelegate.swift in Sources */,
+				9EEC29E12480D99A007061AB /* MenuView.swift in Sources */,
 				9EF0BDCF247E7C5C006F9025 /* SceneDelegate.swift in Sources */,
 				9E51AC31247E99A2007E6CD6 /* ContentView.swift in Sources */,
 			);
@@ -286,8 +290,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ContentExplorer/Preview Content\"";
+				DEVELOPMENT_TEAM = RN439F44ZZ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ContentExplorer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,8 +311,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ContentExplorer/Preview Content\"";
+				DEVELOPMENT_TEAM = RN439F44ZZ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ContentExplorer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
