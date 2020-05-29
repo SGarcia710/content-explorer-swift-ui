@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeView: View {
 
     @Binding var showProfile: Bool
+    @State var showUpdate = false
 
     var body: some View {
         VStack {
@@ -22,6 +23,21 @@ struct HomeView: View {
                 
                 // This is the way to pass a binded state to a component.
                 AvatarView(showProfile: $showProfile)
+                
+                Button(action: { self.showUpdate.toggle() }) {
+                    Image(systemName: "bell")
+                        .renderingMode(.original)
+                        .font(.system(size: 16, weight: .medium))
+                        .frame(width: 36, height: 36)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 10)
+                    
+                }
+                .sheet(isPresented: $showUpdate) {
+                    ContentView()
+                }
             }
             .padding(.horizontal) // 16 by default
             .padding(.leading, 14) // We add 14 to the left side because we want the text to be align with the scroll
