@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E48462824811AE400702C9F /* UpdateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E48462724811AE400702C9F /* UpdateList.swift */; };
+		9E48462B2481204400702C9F /* UpdateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E48462A2481204400702C9F /* UpdateDetail.swift */; };
 		9E51AC31247E99A2007E6CD6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E51AC30247E99A2007E6CD6 /* ContentView.swift */; };
 		9E8F59B02480E9D7005A3885 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F59AF2480E9D7005A3885 /* Home.swift */; };
 		9E8F59B22480FC22005A3885 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F59B12480FC22005A3885 /* HomeView.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		9E48462724811AE400702C9F /* UpdateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateList.swift; sourceTree = "<group>"; };
+		9E48462A2481204400702C9F /* UpdateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDetail.swift; sourceTree = "<group>"; };
 		9E51AC30247E99A2007E6CD6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E8F59AF2480E9D7005A3885 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		9E8F59B12480FC22005A3885 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				9E8F59B12480FC22005A3885 /* HomeView.swift */,
 				9EEC29E02480D99A007061AB /* MenuView.swift */,
 				9E48462724811AE400702C9F /* UpdateList.swift */,
+				9E48462A2481204400702C9F /* UpdateDetail.swift */,
 				9EF0BDD2247E7C5D006F9025 /* Assets.xcassets */,
 				9EF0BDD7247E7C5D006F9025 /* LaunchScreen.storyboard */,
 				9EF0BDDA247E7C5D006F9025 /* Info.plist */,
@@ -161,6 +164,7 @@
 				9EF0BDCD247E7C5C006F9025 /* AppDelegate.swift in Sources */,
 				9E48462824811AE400702C9F /* UpdateList.swift in Sources */,
 				9EEC29E12480D99A007061AB /* MenuView.swift in Sources */,
+				9E48462B2481204400702C9F /* UpdateDetail.swift in Sources */,
 				9E8F59B02480E9D7005A3885 /* Home.swift in Sources */,
 				9E8F59B22480FC22005A3885 /* HomeView.swift in Sources */,
 				9EF0BDCF247E7C5C006F9025 /* SceneDelegate.swift in Sources */,
