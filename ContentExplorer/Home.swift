@@ -12,6 +12,7 @@ struct Home: View {
     
     @State var showProfile = false
     @State var viewState = CGSize.zero
+    @State var showContent = false
     
     var body: some View {
         ZStack {
@@ -20,10 +21,17 @@ struct Home: View {
                 .edgesIgnoringSafeArea(.all) // This will make this View to be over the safe areas too. (.all applies it to all of them)
             
             
-            HomeView(showProfile: $showProfile)
+          HomeView(showProfile: $showProfile, showContent: $showContent)
                 .padding(.top, 44) // Because we want a background color for our VStack, we will have to ignore the safe areas, but with this the content will move also and maybe will be on the safe area. So, we use this padding top of 44 to move it down again. (44 is the height of the Status bar safe area)
                 // Obiously this will cause a problem... We will have to handle what kind of device is opening the app, because for example the iPhone 8 doesnt have notch.
-                .background(Color.white) // Now we can setup our background
+                .background(
+                  VStack {
+                    LinearGradient(gradient: Gradient(colors: [Color("background2"), Color.white]), startPoint: .top, endPoint: .bottom)
+                      .frame(height: 200)
+                    Spacer()
+                  }
+                  .background(Color.white)
+                ) // Now we can setup our background
                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
                 .offset(y: showProfile ? -450 : 0)
@@ -51,7 +59,29 @@ struct Home: View {
                         }
                         self.viewState = .zero
                     }
-            )
+          )
+          
+          if showContent {
+            Color.white.edgesIgnoringSafeArea(.all)
+            ContentView()
+            VStack {
+              HStack {
+                Spacer()
+                Image(systemName: "xmark")
+                  .frame(width: 36, height: 36)
+                  .foregroundColor(.white)
+                  .background(Color.black)
+                  .clipShape(Circle())
+              }
+              Spacer()
+            }
+            .offset(x: -16, y: 16)
+            .transition(.move(edge: .top))
+            .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0))
+            .onTapGesture {
+              self.showContent = false
+            }
+          }
             
         }
     }

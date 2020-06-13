@@ -12,6 +12,7 @@ struct HomeView: View {
   
   @Binding var showProfile: Bool
   @State var showUpdate = false
+  @Binding var showContent: Bool
   
   var body: some View {
     VStack {
@@ -48,6 +49,9 @@ struct HomeView: View {
         WatchRingsView()
           .padding(.horizontal, 30)
           .padding(.bottom, 30)
+          .onTapGesture {
+            self.showContent = true
+        }
       }
       
       
@@ -64,9 +68,18 @@ struct HomeView: View {
           }
         }
         .padding(30)
-          .padding(.bottom, 30) // This is because we dont want our shadow to be cutted of
+        .padding(.bottom, 30) // This is because we dont want our shadow to be cutted of
       }
+      .offset(y: -30)
       
+      HStack{
+        Text("Courses")
+          .font(.title)
+          .bold()
+        
+        Spacer()
+      }
+      .padding(.leading, 30)
       
       Spacer() // This will push everything to the top
     }
@@ -76,13 +89,15 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
     // If you are binding states across files, you will have to set the defaults values for the states
-    HomeView(showProfile: .constant(false))
+    HomeView(showProfile: .constant(false), showContent: .constant(false))
   }
 }
 
 struct SectionView: View {
   
   var section: Section
+  var width: CGFloat = 275
+  var height: CGFloat = 275
   
   var body: some View {
     VStack {
@@ -123,9 +138,9 @@ struct Section: Identifiable {
 }
 
 let sectionData = [
-  Section(title: "Protype designs in SwiftUI", text: "18 Sections", logo: "logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card2")), color: Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1))),
-  Section(title: "Build a SwiftUI app", text: "20 Sections", logo: "logo1", image: Image(uiImage: #imageLiteral(resourceName: "Background1")), color: Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))),
-  Section(title: "SwiftUI Advanced", text: "15 Sections", logo: "logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card4")), color: Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1))),
+  Section(title: "Protype designs in SwiftUI", text: "18 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card2")), color: Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1))),
+  Section(title: "Build a SwiftUI app", text: "20 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Background1")), color: Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))),
+  Section(title: "SwiftUI Advanced", text: "15 Sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card4")), color: Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1))),
 ]
 
 struct WatchRingsView: View {
