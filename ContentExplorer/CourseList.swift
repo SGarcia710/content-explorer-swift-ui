@@ -12,12 +12,14 @@ struct CourseList: View {
     @State var courses = coursesData
     @State var active = false
     @State var activeIndex = -1
+    @State var activeView = CGSize.zero
     
     var body: some View {
         ZStack {
-            Color.black.opacity(active ? 0.5 : 0)
+            Color.black.opacity(Double(self.activeView.height / 500))
                 .animation(.linear)
                 .edgesIgnoringSafeArea(.all)
+            
             ScrollView {
                 VStack(spacing: 30) {
                     Text("Courses")
@@ -34,7 +36,8 @@ struct CourseList: View {
                                 course: self.courses[index],
                                 active: self.$active,
                                 index: index,
-                                activeIndex: self.$activeIndex
+                                activeIndex: self.$activeIndex,
+                                activeView: self.$activeView
                             ) // Dollar sign is necessary when we are passing binding props
                                 .offset(y: self.courses[index].show ? -geometry.frame(in: .global).minY : 0)
                                 .opacity(self.activeIndex != index && self.active ? 0 : 1)
@@ -71,6 +74,7 @@ struct CourseView: View {
     @Binding var active: Bool
     var index: Int
     @Binding var activeIndex: Int
+    @Binding var activeView: CGSize
     
     
     var body: some View {
@@ -137,6 +141,26 @@ struct CourseView: View {
                 .background(Color(course.color))
                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: 0, y: 20)
+                .gesture(
+                    show ? // this allow us to only allow drag gesture when the card is showed up
+                        DragGesture().onChanged { value in
+                            guard value.translation.height < 300 else { return } // look if the drag height value is less than 300, if not, break the code.
+                            guard value.translation.height > 0 else { return } // this allow us to block the top drag
+                            // the guard condition help us to avoid overidenting our code
+                            self.activeView = value.translation
+                            
+                        }
+                        .onEnded { value in
+                            if self.activeView.height > 50 {
+                                self.show = false
+                                self.active = false
+                                self.activeIndex = -1
+                            }
+                            self.activeView = .zero
+                            
+                        }
+                        : nil
+            )
                 .onTapGesture {
                     self.show.toggle()
                     self.active.toggle()
@@ -150,8 +174,29 @@ struct CourseView: View {
             
         }
         .frame(height: show ? screen.height : 280)
+        .scaleEffect(1 - self.activeView.height / 1000)
+        .rotation3DEffect(Angle(degrees: Double(self.activeView.height / 10)), axis: (x: 0, y: 10.0, z: 0))
+        .hueRotation(Angle(degrees: Double(self.activeView.height)))
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-        .edgesIgnoringSafeArea(.all)
+        .gesture(
+            show ?
+                DragGesture().onChanged { value in
+                    guard value.translation.height < 300 else { return }
+                    guard value.translation.height > 0 else { return }
+                    
+                    self.activeView = value.translation
+                }
+                .onEnded { value in
+                    if self.activeView.height > 50 {
+                        self.show = false
+                        self.active = false
+                        self.activeIndex = -1
+                    }
+                    self.activeView = .zero
+                }
+                : nil
+        )
+            .edgesIgnoringSafeArea(.all)
     }
 }
 
