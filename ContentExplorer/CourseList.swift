@@ -11,6 +11,7 @@ import SwiftUI
 struct CourseList: View {
     @State var courses = coursesData
     @State var active = false
+    @State var activeIndex = -1
     
     var body: some View {
         ZStack {
@@ -28,8 +29,17 @@ struct CourseList: View {
                     
                     ForEach(courses.indices, id: \.self) { index in
                         GeometryReader { geometry in
-                            CourseView(show: self.$courses[index].show, course: self.courses[index], active: self.$active)
+                            CourseView(
+                                show: self.$courses[index].show,
+                                course: self.courses[index],
+                                active: self.$active,
+                                index: index,
+                                activeIndex: self.$activeIndex
+                            ) // Dollar sign is necessary when we are passing binding props
                                 .offset(y: self.courses[index].show ? -geometry.frame(in: .global).minY : 0)
+                                .opacity(self.activeIndex != index && self.active ? 0 : 1)
+                                .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
+                                .offset(x: self.activeIndex != index && self.active ? screen.width : 0)
                         }
                         .frame(height: 280)
                             
@@ -59,6 +69,8 @@ struct CourseView: View {
     @Binding var show: Bool
     var course: Course
     @Binding var active: Bool
+    var index: Int
+    @Binding var activeIndex: Int
     
     
     var body: some View {
@@ -75,13 +87,13 @@ struct CourseView: View {
             }
             .padding(30)
             .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? .infinity : 280, alignment: .top)
-            .offset(y: show ? 460 : 0) // if the card is showing up, the text is going to move itself 460 that is the card's height
-            .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
-            .opacity(show ? 1 : 0)
-             
-        
+                .offset(y: show ? 460 : 0) // if the card is showing up, the text is going to move itself 460 that is the card's height
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
+                .opacity(show ? 1 : 0)
+            
+            
             
             
             VStack {
@@ -120,14 +132,20 @@ struct CourseView: View {
             }
             .padding(show ? 30 : 20)
             .padding(.top, show ? 30 : 0)
-    //        .frame(width: show ? screen.width : screen.width - 60, height: show ? screen.height : 280)
-            .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? 460 : 280) // infinity respects the safe area
+                //        .frame(width: show ? screen.width : screen.width - 60, height: show ? screen.height : 280)
+                .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? 460 : 280) // infinity respects the safe area
                 .background(Color(course.color))
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-            .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: 0, y: 20)
-            .onTapGesture {
-                self.show.toggle()
-                self.active.toggle()
+                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: 0, y: 20)
+                .onTapGesture {
+                    self.show.toggle()
+                    self.active.toggle()
+                    if self.show {
+                        self.activeIndex = self.index
+                    } else {
+                        self.activeIndex = -1
+                    }
+                    
             }
             
         }
